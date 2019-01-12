@@ -1,0 +1,173 @@
+//===================================================================
+// Beanshell script
+//===================================================================
+
+import java.io.*;
+import java.util.ArrayList;
+
+String appName = "HelloAndroid";
+String packageName = "com/example/HelloAndroid/";
+String mainActivity = "MainActivity.java";
+String keystore = ""; // full path
+String storepass = "";
+String alias = "";
+String keypass = "";
+
+String libsDir = ""; // Do not modify.
+
+boolean ok = true;
+G.iScriptResultCode = 0;
+
+//===================================================================
+// BeanShell aapt script
+//===================================================================
+
+if (ok)
+{
+	stScriptPath = dirname(pathToFile(getSourceFileInfo()).getAbsolutePath()) + "/";
+	stScriptPath = stScriptPath.replace('\\', '/'); 
+	outdir = stScriptPath + "bin/";
+
+	System.out.println("===================================================================");
+	System.out.println("***** Calling Aapt...");
+	G.bshTask.fnPublishProgress("Running Aapt...");
+
+	args =  "p -m -J " + stScriptPath + "gen";
+	args += " -M " + stScriptPath + "AndroidManifest.xml";
+	args += " -v -S " + stScriptPath + "res";
+	args += " -I " + G.oSet.stAndroidJarPath;
+	args += " -f -F " + outdir + "resources.ap_";
+	G.iScriptResultCode = G.ide.fnAapt(args);
+
+	System.out.println("G.iScriptResultCode = "+G.iScriptResultCode);
+	if (G.iScriptResultCode>0)
+	{
+		G.bshTask.fnToast("Aapt failed!",10000);
+		ok = false;
+	}
+}//fnAapt
+
+//===================================================================
+// BeanShell compile script
+//===================================================================
+
+if (ok)
+{
+	stScriptPath = dirname(pathToFile(getSourceFileInfo()).getAbsolutePath()) + "/";
+	stScriptPath = stScriptPath.replace('\\', '/');
+	stJavafile = "src/" + packageName + mainActivity;
+	
+	System.out.println("\n===================================================================");
+	System.out.println("***** Compiling " + stJavafile + " ...");
+	G.bshTask.fnPublishProgress("Compiling...");
+
+	args = "-verbose -deprecation -extdirs \"\" -1.5";
+	args += " -bootclasspath " + G.oSet.stAndroidJarPath;
+	args += " -classpath " + stScriptPath + "src";
+	args += ":" + stScriptPath + "gen";
+	args += " -d " + stScriptPath + "bin/classesdebug/";
+	args += " " + stScriptPath + stJavafile;
+	G.iScriptResultCode = G.ide.fnCompile(args);
+
+	System.out.println("G.iScriptResultCode = "+G.iScriptResultCode);
+	if (G.iScriptResultCode>=2) 
+  {
+    G.bshTask.fnToast("Compilation failed!",10000);
+    ok = false;
+  }
+  else if (G.iScriptResultCode==1) G.bshTask.fnToast("Compilation with warnings",10000);
+  else G.bshTask.fnToast("Compilation succeeded.",10000);
+}//fnCompile
+
+//===================================================================
+// BeanShell dx script
+//===================================================================
+
+if (ok)
+{
+	stScriptPath = dirname(pathToFile(getSourceFileInfo()).getAbsolutePath()) + "/";
+	stScriptPath = stScriptPath.replace('\\', '/'); 
+	outdir = stScriptPath + "bin/";
+
+	System.out.println("\n===================================================================");
+	System.out.println("***** Calling dx...");
+	G.bshTask.fnPublishProgress("Running dx...");
+
+	args =  "--dex --output=" + outdir + "classes.dex";
+	args += " " + outdir + "classesdebug";
+	args += " " + stScriptPath + libsDir;
+	G.iScriptResultCode = G.ide.fnDx(args);
+
+	System.out.println("G.iScriptResultCode = "+G.iScriptResultCode);
+	if (G.iScriptResultCode>0)
+	{
+		G.bshTask.fnToast("dx failed!",10000);
+		ok = false;
+	}
+}//fnDx
+
+//===================================================================
+// BeanShell ApkBuilder script
+//===================================================================
+
+if (ok)
+{
+	stScriptPath = dirname(pathToFile(getSourceFileInfo()).getAbsolutePath()) + "/";
+	stScriptPath = stScriptPath.replace('\\', '/'); 
+	outdir=stScriptPath + "bin/";
+
+	System.out.println("\n===================================================================");
+	System.out.println("***** Calling ApkBuilder...");
+	G.bshTask.fnPublishProgress("Running ApkBuilder...");
+
+	args =  outdir + "app.unsigned";
+	args += " -u -z " + outdir + "resources.ap_"; // signing is not working with apkbuilder
+	args += " -f " + outdir + "classes.dex";
+	args += " -rf " + stScriptPath + "src";
+	args += " -rj " + stScriptPath + "libs";
+	args += " -nf " + stScriptPath + "libs";
+	G.iScriptResultCode = G.ide.fnApkBuilder(args);
+
+	System.out.println("G.iScriptResultCode = "+G.iScriptResultCode);
+	if (G.iScriptResultCode>0)
+	{
+		G.bshTask.fnToast("ApkBuilder failed!",10000);
+		ok = false;
+	}
+}//fnApkBuilder
+
+//===================================================================
+// BeanShell ZipSigner script
+//===================================================================
+
+if (ok)
+{
+	stScriptPath = dirname(pathToFile(getSourceFileInfo()).getAbsolutePath()) + "/";
+	stScriptPath = stScriptPath.replace('\\', '/'); 
+	outdir = stScriptPath + "bin/";
+
+	System.out.println("\n===================================================================");
+	System.out.println("***** Calling ZipSigner...");
+	G.bshTask.fnPublishProgress("Running ZipSigner...");
+	
+ args = " -I " + outdir + "app.unsigned";
+	args += " -O " + outdir + appName + ".apk";
+	if ((G.stPw1==null) || G.stPw1.equals(""))
+	args +=  " -M testkey";
+	else
+	{
+		args += " -S "+keystore;
+  args += " -P "+storepass;
+  args += " -A "+alias;
+  args += " -W "+keypass;
+	}
+	G.iScriptResultCode = G.ide.fnSignApk(args);
+	
+	System.out.println("G.iScriptResultCode = "+G.iScriptResultCode);
+	if (G.iScriptResultCode>0) 
+  {
+    G.bshTask.fnToast("Signing failed!",10000);
+    ok = false;
+  }
+  else G.bshTask.fnToast("Build completed successfully!",10000);
+}//fnSignApk

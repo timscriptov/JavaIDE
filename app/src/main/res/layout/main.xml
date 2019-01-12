@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@android:id/tabhost">
+
+	<TabWidget
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@android:id/tabs"/>
+
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:id="@android:id/tabcontent">
+
+		<LinearLayout
+			android:id="@+id/tabBeanshell"
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:paddingTop="100px">
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="5dp">
+
+				<ImageButton
+					android:id="@+id/tabBeanshell_btnBrowse"
+					android:src="@drawable/ic_action_folder"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:onClick="tabBeanShell_btnBrowse"/>
+
+				<EditText
+					android:id="@+id/tabBeanshell_etScript"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:singleLine="true"
+					android:gravity="top"
+					android:hint="@string/tipBeanshell_etScript"
+					android:layout_weight="1.0"/>
+
+				<ImageButton
+					android:id="@+id/tabBeanshell_btnRun"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:onClick="tabBeanshell_btnRun"
+					android:src="@drawable/ic_action_play_arrow"/>
+
+			</LinearLayout>
+
+			<ScrollView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
+
+				<HorizontalScrollView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+					<TextView
+						android:id="@+id/tabBeanshell_tvOutput"
+						android:layout_height="match_parent"
+						android:layout_width="match_parent"
+						android:singleLine="false"
+						android:gravity="top"
+						android:textSize="12sp"
+						android:paddingLeft="10dp"/>
+
+				</HorizontalScrollView>
+
+			</ScrollView>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/tabTools"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:paddingTop="100px">
+
+			<Spinner
+				android:id="@+id/sp_tools"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawSelectorOnTop="true"
+				android:entries="@array/ar_tools"
+				android:entryValues="@array/ar_tools"/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="5dp">
+
+				<EditText
+					android:id="@+id/tabTools_etArgs"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:singleLine="true"
+					android:gravity="center_vertical"
+					android:hint="@string/tipTools_etArgs"
+					android:layout_weight="1.0"/>
+
+				<ImageButton
+					android:id="@+id/tabTools_btnRun"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/tabTools_btnRun"
+					android:onClick="tabTools_btnRun"
+					android:gravity="center_vertical"
+					android:src="@drawable/ic_action_play_arrow"/>
+
+			</LinearLayout>
+
+			<ScrollView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<HorizontalScrollView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+					<TextView
+						android:id="@+id/tabTools_tvOutput"
+						android:layout_height="match_parent"
+						android:layout_width="match_parent"
+						android:singleLine="false"
+						android:gravity="top"
+						android:textSize="12sp"
+						android:paddingLeft="10dp"/>
+
+				</HorizontalScrollView>
+
+			</ScrollView>
+
+		</LinearLayout>
+
+	</FrameLayout>
+
+</TabHost>
+

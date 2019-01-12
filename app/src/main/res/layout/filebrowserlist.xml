@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<TextView
+		android:id="@+id/fileview_tvPath"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:singleLine="false"
+		android:focusable="false"
+		android:padding="10dp"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<ListView
+		android:id="@android:id/list"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:scrollbars="vertical"
+		android:fastScrollEnabled="true"
+		android:layout_weight="1"
+		android:clickable="true"/>
+
+	<EditText
+		android:id="@+id/filelist_etFilename"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:singleLine="true"
+		android:focusable="false"
+		android:enabled="false"
+		android:textSize="14sp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<Button
+			android:id="@+id/filelist_btnOK"
+			android:layout_width="0px"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="@string/btnOK"
+			android:onClick="fnOnClickBtnOK"/>
+
+		<Button
+			android:id="@+id/filelist_btnCancel"
+			android:layout_width="0px"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="@string/btnCancel"
+			android:onClick="fnOnClickBtnCancel"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

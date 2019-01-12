@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>JavaIDEdroid - справка</title>
+		<meta name="author" content="Tom Arn">
+
+<style type="text/css">
+body { 
+  background-color:#000000; 
+  color: #FFFFFF;
+  font-weight:normal; 
+  font-family: verdana, arial, sans-serif; 
+  font-size: small; 
+}
+a {
+  color: #FFFF00;
+  text-decoration:underline;
+}
+h1 {
+  font-size: 120%;
+  font-weight: bold;
+  color: #00FF00;
+}
+h2 {
+  font-size: 110%;
+  font-weight: bold;
+  color: #00FF00;
+  border-bottom: 1px dotted #aaa;
+}
+h3 {
+  font-size: 100%;
+  font-weight: bold;
+  color: #00FF00;
+}
+kbd {
+  font-size: small;
+}
+</style>
+
+	</head>
+	<body>
+
+		<h1>JavaIDEdroid</h1>
+		<h2>1. Вступление</h2>
+		<p>JavaIDEdroid (далее "APP") представляет собой интегрированную среду разработки, которая работает на Android и позволяет создавать Android приложения </p>
+
+		<table>
+			<tr><td>Автор:</td><td>Tom Arn, <a href="http://www.t-arn.com">www.t-arn.com</a></td>
+			<tr><td>Домашняя страница проекта <br/>и поддержка:</td><td><a href="http://code.google.com/p/java-ide-droid/">http://code.google.com/p/java-ide-droid/</a></td>
+		</table>
+
+		<p>В настоящее время в приложение интегрированы следующие инструменты:</p>
+		<ul>
+			<li>Инструмент Aapt из Android SDK</li>
+			<li>Eclipse Java Compiler</li>
+			<li>Dx инструмент из Android SDK</li>
+			<li>Инструмент ApkBuilder из Android SDK</li>
+			<li>Zipsigner-lib от Ken Ellinwood</li>
+			<li>BeanShell Interpreter</li>
+		</ul>
+
+		<h2>2. BeanShell</h2>
+		<p>Интегрированный интерпретатор BeanShell позволяет автоматизировать и настроить процесс сборки, написав собственные сценарии BeanShell.</p>
+		<h3>2.1 Написание скриптов</h3>
+		<p>Скрипты BeanShell могут получить доступ к функциональности, встроенной в приложение, с помощью предварительно определенной переменной <kbd> G </ kbd>. <br>
+			Эта переменная ссылается на G.class со следующими доступными переменными и методами:</p>
+		<ul>
+
+			<li>MainActivity class: G.main </li>
+			<li>G.stPw1, G.stPw2: Временные пароли, которые будут использоваться скриптами</li> 
+			<li>G.iScriptResultCode: Scripts can return their result value here</li>
+			<li>IDE class: G.ide предоставляет доступ к инструментам разработки</li>
+			<ul>
+				<li>int G.ide.fnAapt (String arguments)</li>
+				<li>int G.ide.fnAapt (String[] arguments)</li>
+				<li>int G.ide.fnCompile (String arguments)</li>
+				<li>int G.ide.fnCompile (String[] arguments)</li>
+				<li>int G.ide.fnDx (String arguments)</li>
+				<li>int G.ide.fnDx (String[] arguments)</li>
+				<li>int G.ide.fnApkBuilder (String arguments)</li>
+				<li>int G.ide.fnApkBuilder (String[] arguments)</li>
+				<li>int G.ide.fnSignApk (String arguments)</li>
+				<li>int G.ide.fnSignApk (String[] arguments)</li>
+				<li>String[] G.ide.fnTokenize (String commandline) // tokenizes the commandline arguments</li>
+			</ul>
+
+			<li>BeanShellTask class: G.bshTask provides methods for screen output</li>
+			<ul>
+				<li>void G.bshTask.fnClear () // clears BeanShell output</li>
+				<li>void G.bshTask.fnPublishProgress (String msg) // updates progress dialog message</li>
+				<li>void G.bshTask.fnToast (String msg, int milliseconds) // shows a toast message</li>
+			</ul>
+
+			<li>Setting class: G.oSet provides access to variables that can be used in BeanShell scripts:</li>
+			<ul>
+				<li>G.oSet.stDevRootDir: The development root directory</li>
+				<li>G.oSet.stAndroidJarPath: The full path to the default android.jar</li>
+				<li>G.oSet.stBshVar1: User defined global variable 1</li>
+				<li>G.oSet.stBshVar2: User defined global variable 2</li>
+				<li>G.oSet.stBshVar3: User defined global variable 3</li>
+				<li>G.oSet.stBshVar4: User defined global variable 4</li>
+				<li>G.oSet.stBshVar5: User defined global variable 5</li>
+			</ul>
+		</ul>
+
+		<p>Значение возвращаемого значения скрипта: <br>
+		<pre>
+			0:   Ок
+			1:   Предупреждение
+			>1:  Ошибка
+			99:  не определено возвращаемое значение/исключение
+		</pre>
+		<p>
+		<p>Пример вызова ecj:<br><kbd>int rc = G.ide.fnCompile("--version");</kbd></p>
+
+		<h3>2.2 Запуск скриптов</h3>
+		<p>Скрипты BeanShell должны храниться где-то на карте памяти. Вы можете ввести путь и имя файла сценария в поле редактирования или выбрать сценарий, коснувшись значка папки (или выбрать его в «Project Filemanager»). Кнопка <kbd> «Run script!» </ Kbd> запустит указанный скрипт BeanShell.</p>
+
+		<h2>3. Инструменты</h2>
+		<p>This tab provides a direct access to the built-in tools without the need for a BeanShell script. All arguments need to be entered in the edit field. This tab is primarily used to see the help for the tools and try things out.</p>
+
+		<h2>4. Использование с другими приложениями</h2>
+		<p>The APP supports the "android.intent.action.VIEW" intent action for the text/x-beanshell MIME type. If you define this type for the .bsh extension in your Android file manager (e.g. ASTRO) you can click a .bsh file and the APP will be started and the script path and filename prepopulated in the edit field.</p>
+
+		<p>The APP supports the "android.intent.action.SEND" intent action and can be called from other applications using following code:<br>
+		<pre>
+			ComponentName cn = new ComponentName("com.t_arn.JavaIDEdroid", "com.t_arn.JavaIDEdroid.MainActivity");
+			// PRO version: ComponentName cn = new ComponentName("com.t_arn.JavaIDEdroidPRO", "com.t_arn.JavaIDEdroidPRO.MainActivity");
+			Intent intent = new Intent("android.intent.action.SEND");
+			intent.setComponent(cn);
+			intent.putExtra("android.intent.extra.ScriptPath", "/sdcard/AndroidDev/mydomain/HelloWorld/build.bsh");
+			intent.putExtra("android.intent.extra.ProjectFilePath", "/sdcard/AndroidDev/mydomain/HelloWorld/HelloWorld.jip"); // PRO version only
+			intent.putExtra("android.intent.extra.ScriptAutoRun", true);  // default = false
+			intent.putExtra("android.intent.extra.ScriptAutoExit", true); // default = false
+			intent.putExtra("android.intent.extra.WantResultText", true); // default = false
+			startActivityForResult(intent,123);
+		</pre>
+		<p>In the Extra Bundle, you can pass following information:</p>
+		<ul>
+			<li>ScriptPath: This is the path and filename of the script to be run</li>
+			<li>ProjectFilePath (PRO version only): This is the path and filename of the project definition file which will be opened automatically</li>
+			<li>ScriptAutoRun: Set this to true to make the APP run the script immediately after starting</li>
+			<li>ScriptAutoExit: Set this to true to make the APP shut down after the script ran through</li>
+			<li>WantResultText: Set this to true to get back the script output of the BeanShell tab</li>
+		</ul>
+		<p>You can get the data returned from the APP in the <kbd>onActivityResult</kbd> method with following code:<br>
+		<pre>
+			Bundle extras = intent.getExtras();
+			if (extras != null) 
+			{
+			&nbsp;&nbsp; int iScriptResultCode=extras.getInt("android.intent.extra.ScriptResultCode",-1);
+			&nbsp;&nbsp; String stResultText=extras.getString("android.intent.extra.ResultText");
+			}
+		</pre>
+		<p>ScriptResultCode is always returned and contains the value of G.iScriptResultCode. If the script sets this variable, its value is returned to the calling app when JavaIDEdroid is finished automatically or by the user.</p>
+		<p>You can also get the script output of the BeanShell tab by reading the log file <kbd>/sdcard/.JavaIDEdroid/LogOutput.txt</kbd>. Of course, this only works if you have checked the setting 'Log output to file'</p>
+
+		<h2>5. Отладка</h2>
+		<p>If you have problems with the APP, you can set the <kbd>Log Level</kbd> in the APP settings to analyse them. If you define a value higher than NONE, the APP will log informationen to the logcat. The highest amount of information is written with log level VERBOSE.</p>
+
+
+		<h2>7. Legal issues</h2>
+		<p>Thank you for choosing this SOFTWARE! You may only use this SOFTWARE if you agree with the conditions listed further below:</p>
+
+		<p><b>АВТОРСКОЕ ПРАВО</b><br>
+			This SOFTWARE has been developed by Tom Arn, www.t-arn.com, (in the following termed AUTHOR). All rights reserved.</p>
+
+		<p><b>НЕТ ГАРАНТИИ</b><br>
+			The SOFTWARE is provided AS IS without a warranty of any kind. All express, implied or statutory warranties, including any implied warranty of merchantibility or fitness for a particular purpose, are hereby excluded. The AUTHOR does not warrant that the SOFTWARE is fail-safe or error-free. The user must bear all risks when using the SOFTWARE.</p>
+
+		<p><b>НЕТ ОТВЕТСТВЕННОСТИ</b><br>
+			In no event will the AUTHOR be liable for direct, indirect or consequential damages related to the use (or the inability of the use) of the SOFTWARE, even if the AUTHOR has been advised of the possibility of such damages.</p>
+
+	</body>
+</html>

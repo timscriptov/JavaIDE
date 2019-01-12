@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+	<!-- Global -->
+	<string name="app_name">JavaIDE</string>
+	<string name="btnOK">Ок</string>
+	<string name="btnCancel">Відміна</string>
+	<string name="err_errorIn">Помилка в</string>
+	<string name="err_mkdir">Не вдалося створити каталог</string>
+	<string name="msg_foreignSW">Ця програма містить програмне забезпечення від інших авторів:</string>
+	<string name="msg_taskfinished">Завдання завершена</string>
+	<string name="msg_taskrunning">Запуск завдання…</string>
+	<string name="msg_aapt_build">УВАГА: Aapt був створений для Android API рівня 14 або вище.</string>
+	<string name="msg_aapt_your_api">Рівень API</string>
+	<string name="msg_aapt_warning">Можливо, Aapt не працює правильно на вашому пристрої!</string>
+	<string name="msg_workdir_missing">Обов‘язковий робочий каталог /sdcard/.javaide/ не існує.</string>
+	<string name="tit_invalid_data">Введено невірні дані</string>
+	
+	<!-- Passwords -->
+	<string name="lbl_temp_pw">Тут ви можете ввести тимчасові паролі, які потім можуть використовуватися в сценаріях BeanShell. Паролі не зберігаються назавжди. Вийшовши з Java IDE паролі очистяться.</string>
+	<string name="lbl_pw1">Пароль 1 (G.stPw1)</string>
+	<string name="lbl_pw2">Пароль 2 (G.stPw2)</string>
+	<string name="msg_logpw">УВАГА. Паролі могли бути зареєстровані в файлі журналу.</string>
+	<string name="msg_logpwgui">УВАГА. Паролі могли бути зареєстровані в файлі журналу.</string>
+	
+	<!-- Menu -->
+	<string name="mnu_exit">Вийти</string>
+	<string name="mnu_help">Допомога</string>
+	<string name="mnu_passwords">Паролі</string>
+	<string name="mnu_settings">Налаштування</string>
+	
+	<!-- Settings -->
+	<string name="msg_invalid_devroot">Каталог проектів не існує.</string>
+	<string name="pref_devroot_dir">Каталог проектів</string>
+	<string name="prefsum_devroot_dir">Каталог, в якому ви зберігаєте всі свої проекти (G.oSet.stDevRootDir)</string>
+	<string name="prefcat_display">Дисплей</string>
+	<string name="pref_font_size">Розмір шрифту</string>
+	<string name="pref_font_type">Тип шрифту</string>
+	<string name="prefcat_system">Система</string>
+	<string name="pref_log_output">Журнал виведення файлу</string>
+	<string name="pref_log_level">Журнал рівнів</string>
+	<string name="prefsum_log_level">Кількість інформації журналу в logcat</string>
+	<string name="prefcat_global_vars">Глобальні змінні сценарію</string>
+	<string name="pref_android_jar_path">Повний шлях до android.jar</string>
+	<string name="pref_bsh_var1">Призначена для користувача змінна 1</string>
+	<string name="pref_bsh_var2">Призначена для користувача змінна 2</string>
+	<string name="pref_bsh_var3">Призначена для користувача змінна 3</string>
+	<string name="pref_bsh_var4">Призначена для користувача змінна 4</string>
+	<string name="pref_bsh_var5">Призначена для користувача змінна 5</string>
+	
+	<!-- Beanshell tab -->
+	<string name="msg_choose_script">Виберіть Beanshell скрипт</string>
+	<string name="tab_beanshell">BeanShell</string>
+	<string name="tabBeanshell_btnRun">Запуск скрипта!</string>
+	<string name="tipBeanshell_etScript">Шлях і ім‘я скрипта</string>
+	<string name="tit_bshtask">BeanShell завдання</string>
+	
+	<!-- Tools tab -->
+	<string name="tab_tools">Інструменти</string>
+	<string name="tabTools_btnRun">Запуск!</string>
+	<string name="tipTools_etArgs">Аргументи</string>
+	<string name="tit_tooltask">Завдання інструменту</string>
+	
+</resources>
