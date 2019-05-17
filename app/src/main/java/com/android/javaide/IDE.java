@@ -263,6 +263,38 @@ public class IDE
 		System.out.println("\nDone in " + (System.currentTimeMillis() - start) / 1000 + " sec.\n");
 		return rc;
 	} //fnSignApk
+		//===================================================================
+		public int fnProguard(String commandLine) 
+//===================================================================
+			{
+				return fnProguard(fnTokenize(commandLine));
+			}
+//===================================================================
+		public int fnProguard(String[] args)
+//===================================================================
+			{
+				long start=0;
+				int i, rc=99;
+				try
+					{
+						// show arguments
+						start = System.currentTimeMillis();
+						System.out.println("ProGuard arguments:");
+						for (i = 0;i < args.length;i++) System.out.println(args[i]);
+						System.out.println("");
+						// start dx
+						rc = proguard.ProGuard.main(args);
+					}
+				catch (Throwable t)
+					{
+						rc = 99;
+						System.out.println("Error occurred!\n" + t.getMessage());
+						t.printStackTrace();
+					}
+				System.out.println("\nDone in " + (System.currentTimeMillis() - start) / 1000 + " sec.\n");
+				System.out.println("ExitValue: " + rc);
+				return rc;
+			} //fnProguard
 //===================================================================
 	public static String[] fnTokenize(String commandLine) 
 //===================================================================
