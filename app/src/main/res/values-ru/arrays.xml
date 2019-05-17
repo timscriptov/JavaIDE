@@ -6,6 +6,7 @@
 		<item>DX</item>
 		<item>ApkBuilder</item>
 		<item>ZipSigner</item>
+		<item>ProGuard</item>
 	</string-array>
 	<string-array name="ar_font_type">
 		<item>Normal</item>

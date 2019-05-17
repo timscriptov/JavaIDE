@@ -48,6 +48,7 @@ extends AsyncTask<String, String, Void> // android.os.AsyncTask<Params, Progress
 			else if (args[0].equals("DX")) G.ide.fnDx(params);
 			else if (args[0].equals("ApkBuilder")) G.ide.fnApkBuilder(params);
 			else if (args[0].equals("ZipSigner")) G.ide.fnSignApk(params);
+			else if (args[0].equals("ProGuard")) G.ide.fnProguard(params);
 			if (G.oSet.bLogOutput) G.ide.fnLogOutput(swos);
 		}
 		catch (Throwable t)
