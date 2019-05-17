@@ -282,7 +282,7 @@ public class IDE
 						System.out.println("ProGuard arguments:");
 						for (i = 0;i < args.length;i++) System.out.println(args[i]);
 						System.out.println("");
-						// start dx
+						// start ProGuard
 						rc = proguard.ProGuard.main(args);
 					}
 				catch (Throwable t)
